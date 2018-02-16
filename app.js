@@ -37,15 +37,41 @@ app.engine('html', consolidate.ejs);
 
 //接受用户请求
 
-app.get('/', (req, res)=>{
+app.get('/', (req, res, next)=>{
 	//查询banner的东西
 	db.query("SELECT * FROM banner_table", (err, data)=> {
 		if(err) {
-			res.status(500).send('err').end();
+			res.status(500).send('database err').end();
 		}else{
-			res.render('index.ejs', {banners: data});
+			res.banners = data;
+
+			next();
 		}
 	});
+});
+
+app.get('/', (req, res, next)=>{
+	//查询news列表
+	db.query("SELECT ID, title, summary FROM article_table", (err, data)=> {
+		if(err) {
+			res.status(500).send('database error').end();
+		}else{
+			res.news = data;
+			next();
+		}
+	})
+});
+
+app.get('/', (req, res, next)=>{
+	res.render('index.ejs', {
+		banners: res.banners, 
+		articles: res.news
+	});
+});
+
+
+app.get('/article', (req, res, next)=> {
+	res.render('conText.ejs', {});
 });
 
 app.use(static('./www'));
