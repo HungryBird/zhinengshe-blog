@@ -8,6 +8,7 @@ const cookieSession = require('cookie-session');
 const consolidate = require('consolidate');
 const ejs = require('ejs');
 const opn = require('opn');
+const common = require('./libs/common')
 
 const db = mysql.createPool({host: 'localhost', user: 'root', password: '123456', database: 'blog'});
 
@@ -71,7 +72,27 @@ app.get('/', (req, res, next)=>{
 
 
 app.get('/article', (req, res, next)=> {
-	res.render('conText.ejs', {});
+	if(req.query.id) {
+		db.query(`SELECT * FROM article_table WHERE ID = ${req.query.id}`, (err, data)=> {
+			if(err) {
+				res.status(500).send(err).end();
+			} else {
+				if(data.length == 0) {
+					res.status(404).send('您请求的文章找不到了').end();
+				}else{
+					let articleData = data[0];
+					articleData.sDate = common.time2date(articleData.post_time);
+					articleData.content = articleData.content.replace(/^/gm, '<p>').replace(/$/gm, '</p>');
+
+					res.render('conText.ejs', {
+						article_data: articleData
+					})
+				}
+			}
+		})
+	}else{
+		res.status(404).send('您请求的文章找不到了').end();
+	}
 });
 
 app.use(static('./www'));

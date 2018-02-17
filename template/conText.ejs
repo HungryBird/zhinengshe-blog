@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>智能社-http://www.zhinengshe.com</title>
+	<title>文章详情页</title>
   	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -34,7 +34,7 @@
 		.time span img{width:100%;height:100%;}
 		
 		.cont .text-box{ font-size:0.25rem;}
-		.text-box p{ line-height:0.45rem; margin-bottom:0.1rem;}
+		.text-box p{ line-height:0.45rem; margin-bottom:0.1rem;text-indent: 2em;}
 		.foot-btn{width:100%;height:0.8rem; background:#fff; border-top:1px solid #e8eaec; position:fixed; left:0;bottom:0;}
 		.foot-btn ul{width:6.4rem; margin:0 auto;height:0.52rem; margin-top:0.16rem;}
 		.foot-btn ul li{ float:left;}
@@ -67,15 +67,19 @@
     </ul>
 </div>
 <div class="content">
-	<div class="header clear"><h2><img src="img/head.png" alt=""/></h2><p>智能社</p></div>
+	<div class="header clear">
+        <h2>
+            <img src="<%= article_data.author_src %>" alt=""/ style="width: 56px;border-radius: 50%;overflow: hidden;">
+        </h2>
+        <p><%= article_data.author %></p>
+    </div>
     <div class="cont">
-    	<h3>智能社智能社智能社智能社智能社智能社智</h3>
-        <div class="time"><p>2016-9-25 12:49:16 <span><img src="img/zan.png" alt=""/></span></p></div>
+    	<h3><%= article_data.title%></h3>
+        <div class="time">
+            <p><%= article_data.sDate %><span><img src="img/zan.png" alt=""/></span></p>
+        </div>
         <div class="text-box">
-            <p>智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社</p>
-            <p>智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社</p>
-            <p>智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社</p>
-            <p>智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社智能社</p>
+            <%- article_data.content %>
         </div>
     </div>
 </div>
